@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@layer components {
+  .text-xl {
+    @apply text-[24px] leading-[32px] font-bold;
+  }
+  
+  .text-lg {
+    @apply text-[18px] leading-[24px] font-bold;
+  }
+  
+  .text-md {
+    @apply text-[14px] leading-[18px] font-semibold;
+  }
+  
+  .text-sm {
+    @apply text-[12px] leading-[16px] font-normal;
+  }
+  
+  .text-xs {
+    @apply text-[10px] leading-[14px] font-normal uppercase;
+  }
+}
