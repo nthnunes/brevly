@@ -49,11 +49,11 @@ export function App() {
           <img
             src="/Logo.svg"
             alt="Brevly Logo"
-            className="h-8 mb-10 self-start"
+            className="h-8 mb-6 self-center lg:self-start"
           />
           <CreateLinkForm onLinkCreated={handleLinkCreated} />
         </div>
-        <div className="w-full flex flex-col lg:pt-[72px]">
+        <div className="w-full flex flex-col lg:pt-[56px]">
           <LinksList
             links={links}
             isLoading={isLoading}
