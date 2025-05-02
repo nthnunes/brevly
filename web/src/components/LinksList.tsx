@@ -1,8 +1,15 @@
-import { ArrowDownToLine, Clipboard, Trash2, Link } from "lucide-react";
+import {
+  ArrowDownToLine,
+  Clipboard,
+  Trash2,
+  Link,
+  Loader2,
+} from "lucide-react";
 import { env } from "../utils/env";
 
 interface LinksListProps {
   links?: Link[];
+  isLoading?: boolean;
 }
 
 interface Link {
@@ -12,15 +19,16 @@ interface Link {
   accessCount?: number;
 }
 
-export function LinksList({ links = [] }: LinksListProps) {
+export function LinksList({ links = [], isLoading = false }: LinksListProps) {
   const handleDownloadCSV = () => {
     // Implementação para exportar links como CSV
     console.log("Exportar como CSV");
   };
 
   const handleCopyLink = (shortUrl: string) => {
-    navigator.clipboard.writeText(`brev.ly/${shortUrl}`);
-    console.log(`Link copiado: brev.ly/${shortUrl}`);
+    const fullUrl = `${env.FRONTEND_URL}/${shortUrl}`;
+    navigator.clipboard.writeText(fullUrl);
+    console.log(`Link copiado: ${fullUrl}`);
   };
 
   const handleDeleteLink = (id: string) => {
@@ -47,7 +55,12 @@ export function LinksList({ links = [] }: LinksListProps) {
         </button>
       </div>
 
-      {hasLinks ? (
+      {isLoading ? (
+        <div className="flex flex-col items-center justify-center py-16">
+          <Loader2 size={32} className="text-gray-400 animate-spin mb-2" />
+          <p className="text-sm text-gray-400">Carregando links...</p>
+        </div>
+      ) : hasLinks ? (
         <div className="space-y-4">
           {links.map((link) => (
             <div key={link.id} className="border-t border-gray-200 pt-4">
@@ -57,7 +70,7 @@ export function LinksList({ links = [] }: LinksListProps) {
                   className="text-blue-600 font-semibold hover:underline"
                   target="_blank"
                 >
-                  brev.ly/{link.shortUrl}
+                  {new URL(env.FRONTEND_URL).hostname}/{link.shortUrl}
                 </a>
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-gray-500 mr-3">

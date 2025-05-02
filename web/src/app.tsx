@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CreateLinkForm } from "./components/CreateLinkForm";
 import { LinksList } from "./components/LinksList";
+import { getAll } from "./http/links/get-all";
 
 interface Link {
   id: string;
@@ -11,6 +12,24 @@ interface Link {
 
 export function App() {
   const [links, setLinks] = useState<Link[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadLinks() {
+      try {
+        setIsLoading(true);
+        const response = await getAll();
+
+        setLinks(response.links);
+      } catch (error) {
+        console.error("Erro ao buscar links:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    loadLinks();
+  }, []);
 
   const handleLinkCreated = (data: {
     originalUrl: string;
@@ -38,7 +57,7 @@ export function App() {
           <CreateLinkForm onLinkCreated={handleLinkCreated} />
         </div>
         <div className="w-full flex flex-col lg:pt-[72px]">
-          <LinksList links={links} />
+          <LinksList links={links} isLoading={isLoading} />
         </div>
       </div>
     </main>
