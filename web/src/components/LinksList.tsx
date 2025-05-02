@@ -6,7 +6,7 @@ import {
   Loader2,
 } from "lucide-react";
 import { env } from "../utils/env";
-import { deleteByShortUrl } from "../http/links";
+import { deleteByShortUrl, exportLinks } from "../http/links";
 import { useState } from "react";
 
 interface LinksListProps {
@@ -29,10 +29,27 @@ export function LinksList({
   onDeleteLink,
 }: LinksListProps) {
   const [deletingLinks, setDeletingLinks] = useState<Set<string>>(new Set());
+  const [isExporting, setIsExporting] = useState(false);
 
-  const handleDownloadCSV = () => {
-    // Implementação para exportar links como CSV
-    console.log("Exportar como CSV");
+  const handleDownloadCSV = async () => {
+    if (isExporting || !hasLinks) return;
+
+    try {
+      setIsExporting(true);
+
+      const response = await exportLinks();
+
+      const downloadLink = document.createElement("a");
+      downloadLink.href = response.downloadUrl;
+      downloadLink.download = response.fileName;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    } catch (error) {
+      console.error("Erro ao exportar CSV:", error);
+    } finally {
+      setIsExporting(false);
+    }
   };
 
   const handleCopyLink = (shortUrl: string) => {
@@ -75,14 +92,23 @@ export function LinksList({
         <button
           onClick={handleDownloadCSV}
           className={`flex items-center gap-1 text-sm text-gray-500 bg-gray-200 rounded-lg p-2 transition-colors ${
-            hasLinks
+            hasLinks && !isExporting
               ? "hover:text-gray-700 hover:bg-gray-300"
               : "opacity-50 cursor-not-allowed"
           }`}
-          disabled={!hasLinks}
+          disabled={!hasLinks || isExporting}
         >
-          <ArrowDownToLine size={16} />
-          Baixar CSV
+          {isExporting ? (
+            <>
+              <Loader2 size={16} className="animate-spin mr-1" />
+              Exportando...
+            </>
+          ) : (
+            <>
+              <ArrowDownToLine size={16} />
+              Baixar CSV
+            </>
+          )}
         </button>
       </div>
 
