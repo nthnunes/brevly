@@ -1,4 +1,5 @@
 import { ArrowDownToLine, Clipboard, Trash2, Link } from "lucide-react";
+import { env } from "../utils/env";
 
 interface LinksListProps {
   links?: Link[];
@@ -52,7 +53,7 @@ export function LinksList({ links = [] }: LinksListProps) {
             <div key={link.id} className="border-t border-gray-200 pt-4">
               <div className="flex justify-between items-center">
                 <a
-                  href={`https://localhost:5173/${link.shortUrl}`}
+                  href={`${env.FRONTEND_URL}/${link.shortUrl}`}
                   className="text-blue-600 font-semibold hover:underline"
                   target="_blank"
                 >
