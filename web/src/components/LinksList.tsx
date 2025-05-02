@@ -104,7 +104,7 @@ export function LinksList({
                     className="text-blue-600 font-semibold hover:underline"
                     target="_blank"
                   >
-                    {new URL(env.FRONTEND_URL).hostname}/{link.shortUrl}
+                    {`brev.ly/${link.shortUrl}`}
                   </a>
                   <div className="flex items-center gap-2">
                     <span className="text-sm text-gray-500 mr-3">
