@@ -38,6 +38,10 @@ server.setErrorHandler((error, request, reply) => {
 
 server.register(fastifyCors, {
   origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+  maxAge: 86400, // 24 horas em segundos
 });
 
 server.register(fastifyMultipart);
