@@ -2,6 +2,7 @@ import { FormEvent, useState, useEffect } from "react";
 import { create as createLink } from "../http/links";
 import { Loader2 } from "lucide-react";
 import { z } from "zod";
+import axios from "axios";
 
 interface CreateLinkFormProps {
   onLinkCreated?: (data: {
@@ -107,6 +108,14 @@ export function CreateLinkForm({ onLinkCreated }: CreateLinkFormProps) {
           }
         });
         setFieldErrors(errors);
+      } else if (axios.isAxiosError(err) && err.response?.status === 400) {
+        setError(
+          "Este nome de link encurtado já está sendo utilizado. Por favor, escolha outro nome."
+        );
+        setFieldErrors({
+          ...fieldErrors,
+          shortUrl: "Este link encurtado já existe",
+        });
       } else if (err instanceof Error) {
         setError(err.message);
       } else {
