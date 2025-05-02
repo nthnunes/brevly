@@ -37,7 +37,7 @@ export function RedirectPage() {
         <div className="w-full max-w-md bg-white rounded-lg shadow-sm p-8 text-center">
           <div className="flex justify-center mb-3">
             <img
-              src="/404.png"
+              src="/404.svg"
               alt="404 - Link não encontrado"
               className="h-20"
             />
@@ -62,7 +62,7 @@ export function RedirectPage() {
     <div className="min-h-dvh flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md bg-gray-100 rounded-lg shadow-sm p-8 text-center">
         <div className="flex justify-center mb-6">
-          <img src="/Logo_Icon.png" alt="Brevly Logo" width="43" height="43" />
+          <img src="/Logo_Icon.svg" alt="Brevly Logo" width="43" height="43" />
         </div>
         <h1 className="text-xl font-bold text-gray-800 mb-5">
           Redirecionando...

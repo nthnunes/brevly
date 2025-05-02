@@ -193,7 +193,9 @@ export function CreateLinkForm({ onLinkCreated }: CreateLinkFormProps) {
         <button
           type="submit"
           className={`w-full bg-blue-base text-white rounded-lg p-3 transition-colors flex items-center justify-center ${
-            !isFormValid || isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+            !isFormValid || isSubmitting
+              ? "opacity-50 cursor-not-allowed"
+              : "hover:bg-blue-dark"
           }`}
           disabled={!isFormValid || isSubmitting}
         >

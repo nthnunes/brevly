@@ -47,7 +47,7 @@ export function App() {
       <div className="w-full flex gap-6 justify-center flex-wrap lg:flex-nowrap">
         <div className="w-full lg:max-w-sm flex flex-col">
           <img
-            src="/Logo.png"
+            src="/Logo.svg"
             alt="Brevly Logo"
             className="h-8 mb-10 self-start"
           />
