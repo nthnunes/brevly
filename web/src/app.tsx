@@ -8,6 +8,7 @@ interface Link {
   originalUrl: string;
   shortUrl: string;
   accessCount: number;
+  createdAt: string;
 }
 
 export function App() {
@@ -31,17 +32,7 @@ export function App() {
     loadLinks();
   }, []);
 
-  const handleLinkCreated = (data: {
-    originalUrl: string;
-    shortUrl: string;
-  }) => {
-    const newLink: Link = {
-      id: crypto.randomUUID(),
-      originalUrl: data.originalUrl,
-      shortUrl: data.shortUrl,
-      accessCount: 0,
-    };
-
+  const handleLinkCreated = (newLink: Link) => {
     setLinks((prevLinks) => [newLink, ...prevLinks]);
   };
 
