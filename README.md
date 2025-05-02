@@ -148,7 +148,3 @@ yarn build
 ```
 
 Os arquivos de build estarão disponíveis na pasta `dist`.
-
-## Licença
-
-MIT
