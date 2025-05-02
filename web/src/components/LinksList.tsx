@@ -93,7 +93,7 @@ export function LinksList({
           onClick={handleDownloadCSV}
           className={`flex items-center gap-1 text-sm text-gray-500 bg-gray-200 rounded-lg p-2 transition-colors ${
             hasLinks && !isExporting
-              ? "hover:text-gray-700 hover:bg-gray-300"
+              ? "hover:text-blue-base box-border border hover:border-blue-base"
               : "opacity-50 cursor-not-allowed"
           }`}
           disabled={!hasLinks || isExporting}
@@ -123,7 +123,7 @@ export function LinksList({
             const isDeleting = deletingLinks.has(link.shortUrl);
 
             return (
-              <div key={link.id} className="border-t border-gray-200 pt-4">
+              <div key={link.id} className="border-t border-gray-200 pt-2">
                 <div className="flex justify-between items-center">
                   <a
                     href={`${env.FRONTEND_URL}/${link.shortUrl}`}
@@ -138,17 +138,17 @@ export function LinksList({
                     </span>
                     <button
                       onClick={() => handleCopyLink(link.shortUrl)}
-                      className="text-gray-400 hover:text-gray-700 bg-gray-200 hover:bg-gray-300 transition-colors rounded-lg p-2"
+                      className="text-gray-400 box-border border hover:border-blue-base hover:text-blue-base bg-gray-200 transition-colors rounded p-2"
                       disabled={isDeleting}
                     >
                       <Clipboard size={18} />
                     </button>
                     <button
                       onClick={() => handleDeleteLink(link)}
-                      className={`text-gray-400 bg-gray-200 rounded-lg p-2 ${
+                      className={`text-gray-400 bg-gray-200 rounded p-2 ${
                         isDeleting
                           ? "opacity-50 cursor-wait"
-                          : "hover:text-red-500 hover:bg-gray-300"
+                          : "hover:text-danger box-border border hover:border-danger"
                       }`}
                       disabled={isDeleting}
                     >
@@ -168,10 +168,8 @@ export function LinksList({
           })}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center py-10 text-gray-400">
-          <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mb-2">
-            <Link size={16} />
-          </div>
+        <div className="flex flex-col items-center justify-center py-10 text-gray-400 gap-4">
+          <Link size={28} />
           <p className="text-sm">AINDA NÃO EXISTEM LINKS CADASTRADOS</p>
         </div>
       )}
