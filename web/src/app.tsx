@@ -45,6 +45,12 @@ export function App() {
     setLinks((prevLinks) => [newLink, ...prevLinks]);
   };
 
+  const handleLinkDeleted = (shortUrl: string) => {
+    setLinks((prevLinks) =>
+      prevLinks.filter((link) => link.shortUrl !== shortUrl)
+    );
+  };
+
   return (
     <main className="min-h-dvh flex flex-col items-center bg-gray-100 pt-6 pb-6 px-4 lg:pt-20 md:px-16 lg:px-32">
       <div className="w-full flex gap-6 justify-center flex-wrap lg:flex-nowrap">
@@ -57,7 +63,11 @@ export function App() {
           <CreateLinkForm onLinkCreated={handleLinkCreated} />
         </div>
         <div className="w-full flex flex-col lg:pt-[72px]">
-          <LinksList links={links} isLoading={isLoading} />
+          <LinksList
+            links={links}
+            isLoading={isLoading}
+            onDeleteLink={handleLinkDeleted}
+          />
         </div>
       </div>
     </main>
