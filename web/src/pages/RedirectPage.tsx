@@ -18,6 +18,7 @@ export function RedirectPage() {
       try {
         const urlParam = shortUrl as string;
         const response = await getOriginalUrl(urlParam);
+
         setOriginalUrl(response.originalUrl);
         window.location.href = response.originalUrl;
       } catch (err) {
@@ -29,6 +30,33 @@ export function RedirectPage() {
 
     redirectToOriginalUrl();
   }, [shortUrl, isRedirecting, originalUrl]);
+
+  if (error) {
+    return (
+      <div className="min-h-dvh flex flex-col items-center justify-center bg-gray-100 p-4">
+        <div className="w-full max-w-md bg-white rounded-lg shadow-sm p-8 text-center">
+          <div className="flex justify-center mb-3">
+            <img
+              src="/404.png"
+              alt="404 - Link não encontrado"
+              className="h-20"
+            />
+          </div>
+          <h1 className="text-xl font-bold text-gray-800 mb-5">
+            Link não encontrado
+          </h1>
+          <p className="text-gray-500 text-sm">
+            O link que você está tentando acessar não existe, foi removido ou é
+            uma URL inválida. Saiba mais em{" "}
+            <a href="/" className="text-blue-base hover:underline">
+              brev.ly
+            </a>
+            .
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-dvh flex flex-col items-center justify-center p-4">
@@ -44,25 +72,21 @@ export function RedirectPage() {
           O link será aberto automaticamente em alguns instantes.
         </p>
 
-        {error ? (
-          <p className="text-red-500 text-sm">{error}</p>
-        ) : (
-          <p className="text-gray-600 text-sm">
-            Não foi redirecionado?{" "}
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                if (originalUrl) {
-                  window.location.href = originalUrl;
-                }
-              }}
-              className="text-blue-600 hover:underline"
-            >
-              Acesse aqui
-            </a>
-          </p>
-        )}
+        <p className="text-gray-600 text-sm">
+          Não foi redirecionado?{" "}
+          <a
+            href=""
+            onClick={(e) => {
+              e.preventDefault();
+              if (originalUrl) {
+                window.location.href = originalUrl;
+              }
+            }}
+            className="text-blue-base hover:underline"
+          >
+            Acesse aqui
+          </a>
+        </p>
       </div>
     </div>
   );
