@@ -27,7 +27,7 @@ export function App() {
   };
 
   return (
-    <main className="min-h-dvh flex flex-col items-center bg-gray-100 pt-6 pb-6 px-4 lg:pt-20 md:px-32">
+    <main className="min-h-dvh flex flex-col items-center bg-gray-100 pt-6 pb-6 px-4 lg:pt-20 md:px-16 lg:px-32">
       <div className="w-full flex gap-6 justify-center flex-wrap lg:flex-nowrap">
         <div className="w-full lg:max-w-sm flex flex-col">
           <img
