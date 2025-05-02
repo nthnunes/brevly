@@ -91,7 +91,7 @@ export function LinksList({
         <h2 className="text-lg">Meus links</h2>
         <button
           onClick={handleDownloadCSV}
-          className={`flex items-center gap-1 text-sm text-gray-500 bg-gray-200 rounded-lg p-2 transition-colors ${
+          className={`flex items-center gap-1 text-sm text-gray-500 bg-gray-200 rounded p-2 transition-colors ${
             hasLinks && !isExporting
               ? "hover:text-blue-base box-border border hover:border-blue-base"
               : "opacity-50 cursor-not-allowed"
@@ -123,16 +123,22 @@ export function LinksList({
             const isDeleting = deletingLinks.has(link.shortUrl);
 
             return (
-              <div key={link.id} className="border-t border-gray-200 pt-2">
-                <div className="flex justify-between items-center">
-                  <a
-                    href={`${env.FRONTEND_URL}/${link.shortUrl}`}
-                    className="text-blue-600 font-semibold hover:underline"
-                    target="_blank"
-                  >
-                    {`brev.ly/${link.shortUrl}`}
-                  </a>
-                  <div className="flex items-center gap-2">
+              <div key={link.id} className="border-t border-gray-200 pt-4">
+                <div className="flex justify-between">
+                  <div className="flex flex-col justify-center">
+                    <a
+                      href={`${env.FRONTEND_URL}/${link.shortUrl}`}
+                      className="text-blue-base font-semibold hover:underline"
+                      target="_blank"
+                    >
+                      {`brev.ly/${link.shortUrl}`}
+                    </a>
+                    <p className="text-sm text-gray-600 truncate max-w-md">
+                      {link.originalUrl}
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-2 h-full">
                     <span className="text-sm text-gray-500 mr-3">
                       {link.accessCount || 0} acessos
                     </span>
@@ -160,9 +166,6 @@ export function LinksList({
                     </button>
                   </div>
                 </div>
-                <p className="text-sm text-gray-600 truncate">
-                  {link.originalUrl}
-                </p>
               </div>
             );
           })}
