@@ -20,6 +20,7 @@ interface Link {
   originalUrl: string;
   shortUrl: string;
   accessCount?: number;
+  createdAt: string;
 }
 
 export function LinksList({
@@ -42,20 +43,16 @@ export function LinksList({
 
   const handleDeleteLink = async (link: Link) => {
     try {
-      // Marca o link como sendo deletado
       setDeletingLinks((prev) => new Set(prev).add(link.shortUrl));
 
-      // Chama a API para deletar o link
       await deleteByShortUrl(link.shortUrl);
 
-      // Notifica o componente pai sobre a deleção
       if (onDeleteLink) {
         onDeleteLink(link.shortUrl);
       }
     } catch (error) {
       console.error(`Erro ao deletar link: ${link.shortUrl}`, error);
     } finally {
-      // Remove o link da lista de links sendo deletados
       setDeletingLinks((prev) => {
         const newSet = new Set(prev);
         newSet.delete(link.shortUrl);
@@ -65,6 +62,11 @@ export function LinksList({
   };
 
   const hasLinks = links.length > 0;
+
+  // Ordena os links por data de criação (do mais novo para o mais antigo)
+  const sortedLinks = [...links].sort((a, b) => {
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+  });
 
   return (
     <div className="w-full bg-white text-gray-600 rounded-lg p-6 shadow-sm">
@@ -91,7 +93,7 @@ export function LinksList({
         </div>
       ) : hasLinks ? (
         <div className="space-y-4">
-          {links.map((link) => {
+          {sortedLinks.map((link) => {
             const isDeleting = deletingLinks.has(link.shortUrl);
 
             return (
