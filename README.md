@@ -1,8 +1,8 @@
 # Brevly
 
-![Brevly](.github/assets/thumbnail.png)
-
 Brevly é uma aplicação de encurtamento de URLs dividida em uma API backend (server) e uma interface frontend (web). Este projeto permite criar, gerenciar e acessar URLs encurtadas de forma simples e eficiente.
+
+![Brevly](.github/assets/thumbnail.png)
 
 ## Estrutura do Projeto
 
